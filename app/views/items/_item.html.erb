@@ -1,7 +1,7 @@
 <% @items.first(10).each do |item| %>
-<div class="list-group">
- <%= image_tag (item['smallImageUrls'][0]) %>
- <%= link_to item.name, "#{item.url}" %>
- <%= number_with_delimiter(item.price) %>円
-</div>
+<ul class="list-group">
+ <li class="list-group-item"><%= image_tag (item['smallImageUrls'][0]) %></li>
+ <li class="list-group-item"><%= link_to item.name, "#{item.url}" %></li>
+ <li class="list-group-item">価格：<%= number_with_delimiter(item.price) %>円</li>
+</ul>
 <% end %>
