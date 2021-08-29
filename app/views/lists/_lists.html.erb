@@ -1,0 +1,11 @@
+<% if lists.any? %>
+<% lists.each do |list| %>
+<div class="row">
+    <div class="col-md-3"><%= image_tag(list.image_url) %></div>
+    <div class="col-md-5"><%= link_to list.name, "#{list.url}" %></div>
+    <div class="col-md-3">価格：<%= number_with_delimiter(list.price) %>円</div>
+    <div class="col-md-1"><%=  link_to "Delete", list, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %></div>
+</div>
+<% end %>
+<% end %>
+   

@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show]
+  before_action :require_user_logged_in, only: [:index, :show, :likes]
   
   def index
     @pagy, @users = pagy(User.order(id: :desc), items: 25)
   end
 
   def show
+    @lists = current_user.lists
     @user = User.find(params[:id])
   end
 
@@ -23,6 +24,12 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
+  end
+  
+  def likes
+    @user = User.find(params[:id])
+    @pagy, @wish_lists = pagy(@user.wish_lists)
+    counts(@user)
   end
   
   private

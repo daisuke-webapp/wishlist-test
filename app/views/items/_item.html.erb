@@ -1,7 +1,17 @@
 <% @items.first(10).each do |item| %>
-<ul class="list-group">
- <li class="list-group-item"><%= image_tag (item['smallImageUrls'][0]) %></li>
- <li class="list-group-item"><%= link_to item.name, "#{item.url}" %></li>
- <li class="list-group-item">価格：<%= number_with_delimiter(item.price) %>円</li>
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 my-1 border-bottom 1px"><%= image_tag (item['mediumImageUrls'][0]) %></div>
+        <div class="col-md-6 my-1 border-bottom 1px"><%= link_to item.name, "#{item.url}" %></div>
+        <div class="col-md-2 my-1 border-bottom 1px">価格：<%= number_with_delimiter(item.price) %>円</div>
+        <div class="col-md-2 my-1 border-bottom 1px"><%= form_with(url:lists_path, scope: :list) do |f| %>
+        <%= f.hidden_field :image_url, value: item['mediumImageUrls'][0] %>
+        <%= f.hidden_field :name, value: item.name %>
+        <%= f.hidden_field :url, value: item.url %>
+        <%= f.hidden_field :price, value: item.price %>
+        <%= f.hidden_field :item_code, value: item.code %>
+        <%= f.submit 'Add Your Wishlist', class: 'mx-1 btn btn-success btn-sm' %>
+        <% end %></div>
+    </div>
+</div>
 <% end %>
